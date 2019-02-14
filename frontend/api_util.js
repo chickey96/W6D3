@@ -3,7 +3,7 @@ const APIUtil = {
         return $.ajax({
             method: 'POST',
             url: `/users/${id}/follow`,
-            dataType: "json",
+            dataType: "JSON",
         })
     },
 
@@ -11,7 +11,14 @@ const APIUtil = {
         return $.ajax({
             method: 'DELETE',
             url: `/users/${id}/follow`,
-            dataType: "json",
+            dataType: "JSON",
+        })
+    },
+
+    searchUsers: queryVal => {
+        return $.ajax({
+        url: `/users/search`,
+        dataType: "JSON"
         })
     }
 

@@ -98,7 +98,7 @@ const APIUtil = {
         return $.ajax({
             method: 'POST',
             url: `/users/${id}/follow`,
-            dataType: "json",
+            dataType: "JSON",
         })
     },
 
@@ -106,7 +106,14 @@ const APIUtil = {
         return $.ajax({
             method: 'DELETE',
             url: `/users/${id}/follow`,
-            dataType: "json",
+            dataType: "JSON",
+        })
+    },
+
+    searchUsers: queryVal => {
+        return $.ajax({
+        url: `/users/search`,
+        dataType: "JSON"
         })
     }
 
@@ -181,12 +188,40 @@ module.exports = FollowToggle;
 /***/ (function(module, exports, __webpack_require__) {
 
 const FollowToggle = __webpack_require__(/*! ./follow_toggle */ "./frontend/follow_toggle.js");
+const UsersSearch = __webpack_require__(/*! ./users_search */ "./frontend/users_search.js");
 
 $( () => {
     $('button.follow-toggle').each(function (index, button) {
        new FollowToggle(button)
     });
+    $('nav.users-search').each(function (index, search) {
+       new UserSearch(search)
+    });
 });
+
+/***/ }),
+
+/***/ "./frontend/users_search.js":
+/*!**********************************!*\
+  !*** ./frontend/users_search.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+const APIUtil = __webpack_require__(/*! ./api_util */ "./frontend/api_util.js");
+
+class UsersSearch{
+
+    constructor(search) {
+        this.$search = $(search);
+        this.$input = $search.$('search_input')
+        this.$ul = $search.$('.users')
+        this.handleInput.bind(this);
+       }
+    handleInput() {
+        APIUtil.searchUsers(this.$input); 
+    }
+}
 
 /***/ })
 
